@@ -9,14 +9,16 @@ def ask_model(question):
     # Handle request errors
     if response.status_code != 200:
         return f"Error: Received status code {response.status_code}"
+    
+    res_dict = response.json()
 
-    return response.json()
+    return res_dict["choices"][0]["text"]
 
 
 iface = gr.Interface(
     fn=ask_model,
     inputs=gr.Textbox(lines=2, placeholder="Ask your question here..."),
-    outputs="json",
+    outputs="text",
     title="Hermes 2.5 Model Q&A",
     description="Ask any question and the Hermes 2.5 model will respond."
 )

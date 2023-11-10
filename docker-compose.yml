@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000" # Expose the FastAPI server on port 8000
+      - "7860:7860" # Expose the Gradio interface on port 7860
+    volumes:
+      - .:/usr/src/app # Mount the project directory to the container
+
+  # llama_cpp:
+  #   image: llama_cpp:gguf
