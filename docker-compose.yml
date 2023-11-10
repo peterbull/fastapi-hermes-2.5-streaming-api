@@ -2,17 +2,26 @@ version: '3.8'
 
 services:
   fastapi_app:
-    build: .
+    build:
+      context: .
+      target: server
     ports:
       - "8000:8000" # Expose the FastAPI server on port 8000
     volumes:
       - .:/usr/src/app # Mount the project directory
       - ./model:/usr/src/app/model # Make the model accessible
+    restart: unless-stopped # Restart the service unless it is stopped manually
 
   gradio_app:
-    build: ./path_to_gradio_dockerfile
+    build:
+      context: .
+      target: client
     ports:
-      - "7860:7860" # Expose the Gradio interface on port 7860
+      - "7860:7860"
     volumes:
-      - .:/usr/src/app # Mount the project directory
-      - ./model:/usr/src/app/model # Make the model accessible
+      - ./client:/usr/src/app/client # Adjusted to mount the correct directory
+      - ./model:/usr/src/app/client/model # Adjust this if your model directory is elsewhere
+    depends_on:
+      - fastapi_app
+    restart: unless-stopped
+    # command: tail -f /dev/null # Keeps the container running without executing app.py

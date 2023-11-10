@@ -4,7 +4,7 @@ import requests
 
 def ask_model(question):
     response = requests.get(
-        f'http://0.0.0.0:8000/llamastatic', params={'question': question})
+        f'http://fastapi_app:8000/llamastatic', params={'question': question})
 
     # Handle request errors
     if response.status_code != 200:
@@ -23,5 +23,5 @@ iface = gr.Interface(
     description="Ask any question and the Hermes 2.5 model will respond."
 )
 
-iface.launch()
+iface.launch(server_name='0.0.0.0')
 
