@@ -1,13 +1,18 @@
 version: '3.8'
 
 services:
-  app:
+  fastapi_app:
     build: .
     ports:
       - "8000:8000" # Expose the FastAPI server on port 8000
+    volumes:
+      - .:/usr/src/app # Mount the project directory
+      - ./model:/usr/src/app/model # Make the model accessible
+
+  gradio_app:
+    build: ./path_to_gradio_dockerfile
+    ports:
       - "7860:7860" # Expose the Gradio interface on port 7860
     volumes:
-      - .:/usr/src/app # Mount the project directory to the container
-
-  # llama_cpp:
-  #   image: llama_cpp:gguf
+      - .:/usr/src/app # Mount the project directory
+      - ./model:/usr/src/app/model # Make the model accessible

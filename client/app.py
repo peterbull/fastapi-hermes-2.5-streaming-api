@@ -4,7 +4,7 @@ import requests
 
 def ask_model(question):
     response = requests.get(
-        f'http://localhost:8000/llamastatic', params={'question': question})
+        f'http://0.0.0.0:8000/llamastatic', params={'question': question})
 
     # Handle request errors
     if response.status_code != 200:
