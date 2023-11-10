@@ -7,20 +7,18 @@ services:
       target: server
     ports:
       - "8000:8000" # Expose the FastAPI server on port 8000
-    volumes:
-      - .:/usr/src/app # Mount the project directory
-      - ./model:/usr/src/app/model # Make the model accessible
+    # volumes:
+    #   - .:/usr/src/app # Mount the project directory
     restart: unless-stopped # Restart the service unless it is stopped manually
 
   gradio_app:
     build:
-      context: .
+      context: ./client
       target: client
     ports:
       - "7860:7860"
-    volumes:
-      - ./client:/usr/src/app/client # Adjusted to mount the correct directory
-      - ./model:/usr/src/app/client/model # Adjust this if your model directory is elsewhere
+    # volumes:
+    #   - ./client:/usr/src/app/client # Adjusted to mount the correct directory
     depends_on:
       - fastapi_app
     restart: unless-stopped
