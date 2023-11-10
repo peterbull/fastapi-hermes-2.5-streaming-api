@@ -56,8 +56,7 @@ async def llama_static(request: Request, question: str):
     formatted_question = format_message(question)
     res = llm(
         formatted_question,
-        max_tokens=100,
-        stop=["\n", " Q:"],
+        max_tokens=1000,
         stream=False,
     )
 
